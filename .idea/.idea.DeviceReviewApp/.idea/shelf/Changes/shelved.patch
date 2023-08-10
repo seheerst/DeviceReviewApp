@@ -1,0 +1,3138 @@
+Index: Models/Repository.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace DeviceReviewApp.Models;\r\n\r\npublic class Repository\r\n{\r\n    private static readonly List<Product> _products = new();\r\n    private static readonly List<Category> _categories = new();\r\n\r\n    \r\n    \r\n    public static List<Product> Products\r\n    {\r\n        get\r\n        {\r\n            return _products;\r\n        }\r\n    }\r\n    \r\n    public static List<Category> Categories\r\n    {\r\n        get\r\n        {\r\n            return _categories;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Models/Repository.cs b/Models/Repository.cs
+--- a/Models/Repository.cs	(revision 3ea86cea2d96f453ef333ad05016985354da086b)
++++ b/Models/Repository.cs	(date 1691670812751)
+@@ -5,7 +5,19 @@
+     private static readonly List<Product> _products = new();
+     private static readonly List<Category> _categories = new();
+ 
+-    
++    static Repository()
++    {
++          _categories.Add(new Category(){CategoryId = 1, Name = "Telefon"}); 
++          _categories.Add(new Category(){CategoryId = 2, Name = "Bilgisayar"});
++          
++          _products.Add(new Product(){ProductId = 1, Name = "Iphone 14", Price = "40000₺",IsActive = true, CategoryId = 1,Image = "1.jpg"});
++          _products.Add(new Product(){ProductId = 2, Name = "Iphone 13", Price = "30000₺",IsActive = true, CategoryId = 1,Image = "2.jpg"});
++          _products.Add(new Product(){ProductId = 3, Name = "Iphone 12", Price = "20000₺",IsActive = true, CategoryId = 1,Image = "3.jpg"});
++          _products.Add(new Product(){ProductId = 4, Name = "Iphone 11", Price = "18000₺",IsActive = true, CategoryId = 1,Image = "4.jpg"});
++          _products.Add(new Product(){ProductId = 5, Name = "Macbook Air", Price = "25000₺",IsActive = true, CategoryId = 2,Image = "5.jpg"});
++          _products.Add(new Product(){ProductId = 6, Name = "Macbook Pro", Price = "30000₺",IsActive = true, CategoryId = 2,Image = "6.jpg"});
++    }
++
+     
+     public static List<Product> Products
+     {
+Index: Models/Product.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace DeviceReviewApp.Models;\r\n\r\npublic class Product\r\n{\r\n    public  int ProductId { get; set; }\r\n\r\n    public string Name { get; set; } = string.Empty;\r\n    \r\n    public decimal Price { get; set; }\r\n\r\n    public string Image { get; set; } = string.Empty;\r\n    \r\n    public bool IsActive { get; set; }\r\n    \r\n    public int CategoryId { get; set; }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Models/Product.cs b/Models/Product.cs
+--- a/Models/Product.cs	(revision 3ea86cea2d96f453ef333ad05016985354da086b)
++++ b/Models/Product.cs	(date 1691669574144)
+@@ -6,7 +6,7 @@
+ 
+     public string Name { get; set; } = string.Empty;
+     
+-    public decimal Price { get; set; }
++    public string Price { get; set; }= string.Empty;
+ 
+     public string Image { get; set; } = string.Empty;
+     
+Index: Views/Shared/_Layout.cshtml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>@ViewData[\"Title\"] - DeviceReviewApp</title>\r\n    <link rel=\"stylesheet\" href=\"~/lib/bootstrap/dist/css/bootstrap.min.css\" />\r\n    <link rel=\"stylesheet\" href=\"~/css/site.css\" asp-append-version=\"true\" />\r\n    <link rel=\"stylesheet\" href=\"~/DeviceReviewApp.styles.css\" asp-append-version=\"true\" />\r\n</head>\r\n<body>\r\n    <header>\r\n        <nav class=\"navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3\">\r\n            <div class=\"container-fluid\">\r\n                <a class=\"navbar-brand\" asp-area=\"\" asp-controller=\"Home\" asp-action=\"Index\">DeviceReviewApp</a>\r\n                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\".navbar-collapse\" aria-controls=\"navbarSupportedContent\"\r\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                    <span class=\"navbar-toggler-icon\"></span>\r\n                </button>\r\n                <div class=\"navbar-collapse collapse d-sm-inline-flex justify-content-between\">\r\n                    <ul class=\"navbar-nav flex-grow-1\">\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link text-dark\" asp-area=\"\" asp-controller=\"Home\" asp-action=\"Index\">Home</a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link text-dark\" asp-area=\"\" asp-controller=\"Home\" asp-action=\"Privacy\">Privacy</a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </nav>\r\n    </header>\r\n    <div class=\"container\">\r\n        <main role=\"main\" class=\"pb-3\">\r\n            @RenderBody()\r\n        </main>\r\n    </div>\r\n\r\n    <footer class=\"border-top footer text-muted\">\r\n        <div class=\"container\">\r\n            &copy; 2023 - DeviceReviewApp - <a asp-area=\"\" asp-controller=\"Home\" asp-action=\"Privacy\">Privacy</a>\r\n        </div>\r\n    </footer>\r\n    <script src=\"~/lib/jquery/dist/jquery.min.js\"></script>\r\n    <script src=\"~/lib/bootstrap/dist/js/bootstrap.bundle.min.js\"></script>\r\n    <script src=\"~/js/site.js\" asp-append-version=\"true\"></script>\r\n    @await RenderSectionAsync(\"Scripts\", required: false)\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/Shared/_Layout.cshtml b/Views/Shared/_Layout.cshtml
+--- a/Views/Shared/_Layout.cshtml	(revision 3ea86cea2d96f453ef333ad05016985354da086b)
++++ b/Views/Shared/_Layout.cshtml	(date 1691673673572)
+@@ -11,7 +11,7 @@
+ <body>
+     <header>
+         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+-            <div class="container-fluid">
++            <div class="container">
+                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DeviceReviewApp</a>
+                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                         aria-expanded="false" aria-label="Toggle navigation">
+@@ -19,14 +19,17 @@
+                 </button>
+                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                     <ul class="navbar-nav flex-grow-1">
+-                        <li class="nav-item">
+-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+-                        </li>
+-                        <li class="nav-item">
+-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+-                        </li>
++                        @* <li class="nav-item"> *@
++                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> *@
++                        @* </li> *@
++                       
+                     </ul>
+                 </div>
++                <form class="d-flex" asp-controller="Home" asp-action="index" method="get">
++                    <input type="search" name="searchString" placeholder="Search..." value="@ViewBag.SearchString" class="form-control me-2">
++                    <button type="submit" class="btn btn-primary"> Search</button>
++                </form>
++                
+             </div>
+         </nav>
+     </header>
+Index: Views/Home/Index.cshtml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@{\r\n    ViewData[\"Title\"] = \"Home Page\";\r\n}\r\n\r\n<div class=\"text-center\">\r\n    <h1 class=\"display-4\">Welcome</h1>\r\n    <p>Learn about <a href=\"https://docs.microsoft.com/aspnet/core\">building Web apps with ASP.NET Core</a>.</p>\r\n</div>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/Home/Index.cshtml b/Views/Home/Index.cshtml
+--- a/Views/Home/Index.cshtml	(revision 3ea86cea2d96f453ef333ad05016985354da086b)
++++ b/Views/Home/Index.cshtml	(date 1691669456580)
+@@ -1,8 +1,34 @@
++@model List<Product>
++
+ @{
+     ViewData["Title"] = "Home Page";
+ }
+ 
+-<div class="text-center">
+-    <h1 class="display-4">Welcome</h1>
+-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+-</div>
++<table class="table table-bordered table-striped">
++<thead>
++
++<tr>
++    <th style="width: 100px">Product Id</th>
++    <th style="width: 100px"> Product Image</th>
++    <th>Product Name</th>
++    <th  style="width: 100px">Product Price</th>
++    <th  style="width: 130px"></th>
++</tr>
++</thead>
++<tbody>
++@foreach (var prd in @Model)
++{
++    <tr>
++        <td>@prd.ProductId</td>
++        <td><img src="~/img/@prd.Image" class="img-fluid"></td>
++        <td>@prd.Name</td>
++        <td>@prd.Price</td>
++        <td>
++             <a href="" class=" btn btn-sm btn-primary">Edit</a>
++            <a href="" class=" btn btn-sm btn-danger">Delete</a>
++        </td>
++        
++    </tr>
++}
++</tbody>
++</table>
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets/msbuild.build.DeviceReviewApp.props
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets/msbuild.build.DeviceReviewApp.props b/obj/Debug/net7.0/staticwebassets/msbuild.build.DeviceReviewApp.props
+new file mode 100644
+--- /dev/null	(date 1691668746623)
++++ b/obj/Debug/net7.0/staticwebassets/msbuild.build.DeviceReviewApp.props	(date 1691668746623)
+@@ -0,0 +1,3 @@
++<Project>
++  <Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
++</Project>
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.DeviceReviewApp.props
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.DeviceReviewApp.props b/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.DeviceReviewApp.props
+new file mode 100644
+--- /dev/null	(date 1691668746623)
++++ b/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.DeviceReviewApp.props	(date 1691668746623)
+@@ -0,0 +1,3 @@
++<Project>
++  <Import Project="..\build\DeviceReviewApp.props" />
++</Project>
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.DeviceReviewApp.props
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.DeviceReviewApp.props b/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.DeviceReviewApp.props
+new file mode 100644
+--- /dev/null	(date 1691668746639)
++++ b/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.DeviceReviewApp.props	(date 1691668746639)
+@@ -0,0 +1,3 @@
++<Project>
++  <Import Project="..\buildMultiTargeting\DeviceReviewApp.props" />
++</Project>
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets/msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets/msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props b/obj/Debug/net7.0/staticwebassets/msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props
+new file mode 100644
+--- /dev/null	(date 1691668746623)
++++ b/obj/Debug/net7.0/staticwebassets/msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props	(date 1691668746623)
+@@ -0,0 +1,1076 @@
++<Project>
++  <ItemGroup>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\css\site.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>css/site.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\css\site.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\DeviceReviewApp.bundle.scp.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>DeviceReviewApp.bundle.scp.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>Reference</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName>ScopedCss</AssetTraitName>
++      <AssetTraitValue>ProjectBundle</AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\DeviceReviewApp.bundle.scp.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>favicon.ico</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/1.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\2.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/2.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\2.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\3.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/3.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\3.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\4.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/4.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\4.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\5.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/5.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\5.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\6.jpg))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>img/6.jpg</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\6.jpg))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>js/site.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.min.css))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.min.css</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.min.css))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/css/bootstrap.rtl.min.css.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.bundle.min.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.min.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.esm.min.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.esm.min.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/dist/js/bootstrap.min.js.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\LICENSE))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/bootstrap/LICENSE</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\LICENSE))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\LICENSE.txt))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation-unobtrusive/LICENSE.txt</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation-unobtrusive\LICENSE.txt))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\additional-methods.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation/dist/additional-methods.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\additional-methods.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\additional-methods.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation/dist/additional-methods.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\additional-methods.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\jquery.validate.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation/dist/jquery.validate.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\jquery.validate.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\jquery.validate.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation/dist/jquery.validate.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\dist\jquery.validate.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\LICENSE.md))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery-validation/LICENSE.md</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery-validation\LICENSE.md))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery/dist/jquery.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.min.js))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery/dist/jquery.min.js</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.min.js))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.min.map))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery/dist/jquery.min.map</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\dist\jquery.min.map))</OriginalItemSpec>
++    </StaticWebAsset>
++    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\LICENSE.txt))">
++      <SourceType>Package</SourceType>
++      <SourceId>DeviceReviewApp</SourceId>
++      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
++      <BasePath>_content/DeviceReviewApp</BasePath>
++      <RelativePath>lib/jquery/LICENSE.txt</RelativePath>
++      <AssetKind>All</AssetKind>
++      <AssetMode>All</AssetMode>
++      <AssetRole>Primary</AssetRole>
++      <RelatedAsset></RelatedAsset>
++      <AssetTraitName></AssetTraitName>
++      <AssetTraitValue></AssetTraitValue>
++      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
++      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
++      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\LICENSE.txt))</OriginalItemSpec>
++    </StaticWebAsset>
++  </ItemGroup>
++</Project>
+\ No newline at end of file
+Index: bin/Debug/net7.0/appsettings.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/Debug/net7.0/appsettings.json b/bin/Debug/net7.0/appsettings.json
+new file mode 100644
+--- /dev/null	(date 1691666784213)
++++ b/bin/Debug/net7.0/appsettings.json	(date 1691666784213)
+@@ -0,0 +1,9 @@
++{
++  "Logging": {
++    "LogLevel": {
++      "Default": "Information",
++      "Microsoft.AspNetCore": "Warning"
++    }
++  },
++  "AllowedHosts": "*"
++}
+Index: bin/Debug/net7.0/DeviceReviewApp.deps.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/Debug/net7.0/DeviceReviewApp.deps.json b/bin/Debug/net7.0/DeviceReviewApp.deps.json
+new file mode 100644
+--- /dev/null	(date 1691668747045)
++++ b/bin/Debug/net7.0/DeviceReviewApp.deps.json	(date 1691668747045)
+@@ -0,0 +1,23 @@
++{
++  "runtimeTarget": {
++    "name": ".NETCoreApp,Version=v7.0",
++    "signature": ""
++  },
++  "compilationOptions": {},
++  "targets": {
++    ".NETCoreApp,Version=v7.0": {
++      "DeviceReviewApp/1.0.0": {
++        "runtime": {
++          "DeviceReviewApp.dll": {}
++        }
++      }
++    }
++  },
++  "libraries": {
++    "DeviceReviewApp/1.0.0": {
++      "type": "project",
++      "serviceable": false,
++      "sha512": ""
++    }
++  }
++}
+\ No newline at end of file
+Index: bin/Debug/net7.0/DeviceReviewApp.staticwebassets.runtime.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/Debug/net7.0/DeviceReviewApp.staticwebassets.runtime.json b/bin/Debug/net7.0/DeviceReviewApp.staticwebassets.runtime.json
+new file mode 100644
+--- /dev/null	(date 1691668746732)
++++ b/bin/Debug/net7.0/DeviceReviewApp.staticwebassets.runtime.json	(date 1691668746732)
+@@ -0,0 +1,1 @@
++{"ContentRoots":["C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\","C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\bundle\\"],"Root":{"Children":{"css":{"Children":{"site.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"css/site.css"},"Patterns":null}},"Asset":null,"Patterns":null},"favicon.ico":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"favicon.ico"},"Patterns":null},"img":{"Children":{"1.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/1.jpg"},"Patterns":null},"2.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/2.jpg"},"Patterns":null},"3.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/3.jpg"},"Patterns":null},"4.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/4.jpg"},"Patterns":null},"5.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/5.jpg"},"Patterns":null},"6.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/6.jpg"},"Patterns":null}},"Asset":null,"Patterns":null},"js":{"Children":{"site.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"js/site.js"},"Patterns":null}},"Asset":null,"Patterns":null},"lib":{"Children":{"bootstrap":{"Children":{"dist":{"Children":{"css":{"Children":{"bootstrap-grid.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.css"},"Patterns":null},"bootstrap-grid.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.css.map"},"Patterns":null},"bootstrap-grid.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.min.css"},"Patterns":null},"bootstrap-grid.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.min.css.map"},"Patterns":null},"bootstrap-grid.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.css"},"Patterns":null},"bootstrap-grid.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"},"Patterns":null},"bootstrap-grid.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"},"Patterns":null},"bootstrap-grid.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"},"Patterns":null},"bootstrap-reboot.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.css"},"Patterns":null},"bootstrap-reboot.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.css.map"},"Patterns":null},"bootstrap-reboot.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.min.css"},"Patterns":null},"bootstrap-reboot.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"},"Patterns":null},"bootstrap-reboot.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"},"Patterns":null},"bootstrap-reboot.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"},"Patterns":null},"bootstrap-reboot.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"},"Patterns":null},"bootstrap-reboot.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"},"Patterns":null},"bootstrap-utilities.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.css"},"Patterns":null},"bootstrap-utilities.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.css.map"},"Patterns":null},"bootstrap-utilities.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.min.css"},"Patterns":null},"bootstrap-utilities.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"},"Patterns":null},"bootstrap-utilities.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"},"Patterns":null},"bootstrap-utilities.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"},"Patterns":null},"bootstrap-utilities.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"},"Patterns":null},"bootstrap-utilities.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"},"Patterns":null},"bootstrap.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.css"},"Patterns":null},"bootstrap.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.css.map"},"Patterns":null},"bootstrap.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.min.css"},"Patterns":null},"bootstrap.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.min.css.map"},"Patterns":null},"bootstrap.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.css"},"Patterns":null},"bootstrap.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.css.map"},"Patterns":null},"bootstrap.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.min.css"},"Patterns":null},"bootstrap.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"},"Patterns":null}},"Asset":null,"Patterns":null},"js":{"Children":{"bootstrap.bundle.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.js"},"Patterns":null},"bootstrap.bundle.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.js.map"},"Patterns":null},"bootstrap.bundle.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.min.js"},"Patterns":null},"bootstrap.bundle.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"},"Patterns":null},"bootstrap.esm.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.js"},"Patterns":null},"bootstrap.esm.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.js.map"},"Patterns":null},"bootstrap.esm.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.min.js"},"Patterns":null},"bootstrap.esm.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.min.js.map"},"Patterns":null},"bootstrap.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.js"},"Patterns":null},"bootstrap.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.js.map"},"Patterns":null},"bootstrap.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.min.js"},"Patterns":null},"bootstrap.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.min.js.map"},"Patterns":null}},"Asset":null,"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/LICENSE"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery-validation-unobtrusive":{"Children":{"jquery.validate.unobtrusive.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"},"Patterns":null},"jquery.validate.unobtrusive.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"},"Patterns":null},"LICENSE.txt":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/LICENSE.txt"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery-validation":{"Children":{"dist":{"Children":{"additional-methods.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/additional-methods.js"},"Patterns":null},"additional-methods.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/additional-methods.min.js"},"Patterns":null},"jquery.validate.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/jquery.validate.js"},"Patterns":null},"jquery.validate.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/jquery.validate.min.js"},"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE.md":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/LICENSE.md"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery":{"Children":{"dist":{"Children":{"jquery.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.js"},"Patterns":null},"jquery.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.min.js"},"Patterns":null},"jquery.min.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.min.map"},"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE.txt":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/LICENSE.txt"},"Patterns":null}},"Asset":null,"Patterns":null}},"Asset":null,"Patterns":null},"DeviceReviewApp.styles.css":{"Children":null,"Asset":{"ContentRootIndex":1,"SubPath":"DeviceReviewApp.styles.css"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+\ No newline at end of file
+Index: bin/Debug/net7.0/appsettings.Development.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/Debug/net7.0/appsettings.Development.json b/bin/Debug/net7.0/appsettings.Development.json
+new file mode 100644
+--- /dev/null	(date 1691666784213)
++++ b/bin/Debug/net7.0/appsettings.Development.json	(date 1691666784213)
+@@ -0,0 +1,8 @@
++{
++  "Logging": {
++    "LogLevel": {
++      "Default": "Information",
++      "Microsoft.AspNetCore": "Warning"
++    }
++  }
++}
+Index: bin/Debug/net7.0/DeviceReviewApp.runtimeconfig.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/Debug/net7.0/DeviceReviewApp.runtimeconfig.json b/bin/Debug/net7.0/DeviceReviewApp.runtimeconfig.json
+new file mode 100644
+--- /dev/null	(date 1691668747159)
++++ b/bin/Debug/net7.0/DeviceReviewApp.runtimeconfig.json	(date 1691668747159)
+@@ -0,0 +1,19 @@
++{
++  "runtimeOptions": {
++    "tfm": "net7.0",
++    "frameworks": [
++      {
++        "name": "Microsoft.NETCore.App",
++        "version": "7.0.0"
++      },
++      {
++        "name": "Microsoft.AspNetCore.App",
++        "version": "7.0.0"
++      }
++    ],
++    "configProperties": {
++      "System.GC.Server": true,
++      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
++    }
++  }
++}
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets.pack.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets.pack.json b/obj/Debug/net7.0/staticwebassets.pack.json
+new file mode 100644
+--- /dev/null	(date 1691668746685)
++++ b/obj/Debug/net7.0/staticwebassets.pack.json	(date 1691668746685)
+@@ -0,0 +1,289 @@
++{
++  "Files": [
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\DeviceReviewApp.bundle.scp.css",
++      "PackagePath": "staticwebassets\\DeviceReviewApp.bundle.scp.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\css\\site.css",
++      "PackagePath": "staticwebassets\\css\\site.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\favicon.ico",
++      "PackagePath": "staticwebassets\\favicon.ico"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\1.jpg",
++      "PackagePath": "staticwebassets\\img\\1.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\2.jpg",
++      "PackagePath": "staticwebassets\\img\\2.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\3.jpg",
++      "PackagePath": "staticwebassets\\img\\3.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\4.jpg",
++      "PackagePath": "staticwebassets\\img\\4.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\5.jpg",
++      "PackagePath": "staticwebassets\\img\\5.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\6.jpg",
++      "PackagePath": "staticwebassets\\img\\6.jpg"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\js\\site.js",
++      "PackagePath": "staticwebassets\\js\\site.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\LICENSE",
++      "PackagePath": "staticwebassets\\lib\\bootstrap"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
++      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
++      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\LICENSE.txt",
++      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.js",
++      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
++      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
++    },
++    {
++      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
++      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
++    },
++    {
++      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props",
++      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
++    },
++    {
++      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.DeviceReviewApp.props",
++      "PackagePath": "build\\DeviceReviewApp.props"
++    },
++    {
++      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.DeviceReviewApp.props",
++      "PackagePath": "buildMultiTargeting\\DeviceReviewApp.props"
++    },
++    {
++      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.DeviceReviewApp.props",
++      "PackagePath": "buildTransitive\\DeviceReviewApp.props"
++    }
++  ],
++  "ElementsToRemove": []
++}
+\ No newline at end of file
+Index: obj/Debug/net7.0/staticwebassets.development.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets.development.json b/obj/Debug/net7.0/staticwebassets.development.json
+new file mode 100644
+--- /dev/null	(date 1691668746732)
++++ b/obj/Debug/net7.0/staticwebassets.development.json	(date 1691668746732)
+@@ -0,0 +1,1 @@
++{"ContentRoots":["C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\","C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\bundle\\"],"Root":{"Children":{"css":{"Children":{"site.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"css/site.css"},"Patterns":null}},"Asset":null,"Patterns":null},"favicon.ico":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"favicon.ico"},"Patterns":null},"img":{"Children":{"1.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/1.jpg"},"Patterns":null},"2.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/2.jpg"},"Patterns":null},"3.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/3.jpg"},"Patterns":null},"4.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/4.jpg"},"Patterns":null},"5.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/5.jpg"},"Patterns":null},"6.jpg":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"img/6.jpg"},"Patterns":null}},"Asset":null,"Patterns":null},"js":{"Children":{"site.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"js/site.js"},"Patterns":null}},"Asset":null,"Patterns":null},"lib":{"Children":{"bootstrap":{"Children":{"dist":{"Children":{"css":{"Children":{"bootstrap-grid.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.css"},"Patterns":null},"bootstrap-grid.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.css.map"},"Patterns":null},"bootstrap-grid.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.min.css"},"Patterns":null},"bootstrap-grid.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.min.css.map"},"Patterns":null},"bootstrap-grid.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.css"},"Patterns":null},"bootstrap-grid.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"},"Patterns":null},"bootstrap-grid.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"},"Patterns":null},"bootstrap-grid.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"},"Patterns":null},"bootstrap-reboot.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.css"},"Patterns":null},"bootstrap-reboot.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.css.map"},"Patterns":null},"bootstrap-reboot.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.min.css"},"Patterns":null},"bootstrap-reboot.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"},"Patterns":null},"bootstrap-reboot.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"},"Patterns":null},"bootstrap-reboot.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"},"Patterns":null},"bootstrap-reboot.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"},"Patterns":null},"bootstrap-reboot.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"},"Patterns":null},"bootstrap-utilities.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.css"},"Patterns":null},"bootstrap-utilities.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.css.map"},"Patterns":null},"bootstrap-utilities.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.min.css"},"Patterns":null},"bootstrap-utilities.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"},"Patterns":null},"bootstrap-utilities.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"},"Patterns":null},"bootstrap-utilities.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"},"Patterns":null},"bootstrap-utilities.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"},"Patterns":null},"bootstrap-utilities.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"},"Patterns":null},"bootstrap.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.css"},"Patterns":null},"bootstrap.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.css.map"},"Patterns":null},"bootstrap.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.min.css"},"Patterns":null},"bootstrap.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.min.css.map"},"Patterns":null},"bootstrap.rtl.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.css"},"Patterns":null},"bootstrap.rtl.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.css.map"},"Patterns":null},"bootstrap.rtl.min.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.min.css"},"Patterns":null},"bootstrap.rtl.min.css.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"},"Patterns":null}},"Asset":null,"Patterns":null},"js":{"Children":{"bootstrap.bundle.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.js"},"Patterns":null},"bootstrap.bundle.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.js.map"},"Patterns":null},"bootstrap.bundle.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.min.js"},"Patterns":null},"bootstrap.bundle.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"},"Patterns":null},"bootstrap.esm.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.js"},"Patterns":null},"bootstrap.esm.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.js.map"},"Patterns":null},"bootstrap.esm.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.min.js"},"Patterns":null},"bootstrap.esm.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.esm.min.js.map"},"Patterns":null},"bootstrap.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.js"},"Patterns":null},"bootstrap.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.js.map"},"Patterns":null},"bootstrap.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.min.js"},"Patterns":null},"bootstrap.min.js.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/dist/js/bootstrap.min.js.map"},"Patterns":null}},"Asset":null,"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/bootstrap/LICENSE"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery-validation-unobtrusive":{"Children":{"jquery.validate.unobtrusive.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"},"Patterns":null},"jquery.validate.unobtrusive.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"},"Patterns":null},"LICENSE.txt":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation-unobtrusive/LICENSE.txt"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery-validation":{"Children":{"dist":{"Children":{"additional-methods.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/additional-methods.js"},"Patterns":null},"additional-methods.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/additional-methods.min.js"},"Patterns":null},"jquery.validate.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/jquery.validate.js"},"Patterns":null},"jquery.validate.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/dist/jquery.validate.min.js"},"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE.md":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery-validation/LICENSE.md"},"Patterns":null}},"Asset":null,"Patterns":null},"jquery":{"Children":{"dist":{"Children":{"jquery.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.js"},"Patterns":null},"jquery.min.js":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.min.js"},"Patterns":null},"jquery.min.map":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/dist/jquery.min.map"},"Patterns":null}},"Asset":null,"Patterns":null},"LICENSE.txt":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"lib/jquery/LICENSE.txt"},"Patterns":null}},"Asset":null,"Patterns":null}},"Asset":null,"Patterns":null},"DeviceReviewApp.styles.css":{"Children":null,"Asset":{"ContentRootIndex":1,"SubPath":"DeviceReviewApp.styles.css"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+\ No newline at end of file
+Index: Controllers/HomeController.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using DeviceReviewApp.Models;\r\nusing Microsoft.AspNetCore.Mvc;\r\nusing System.Diagnostics;\r\n\r\nnamespace DeviceReviewApp.Controllers\r\n{\r\n    public class HomeController : Controller\r\n    {\r\n    \r\n\r\n        public HomeController()\r\n        {\r\n       \r\n        }\r\n\r\n        public IActionResult Index()\r\n        {\r\n            return View(Repository.Products);\r\n        }\r\n\r\n        public IActionResult Privacy()\r\n        {\r\n            return View();\r\n        }\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Controllers/HomeController.cs b/Controllers/HomeController.cs
+--- a/Controllers/HomeController.cs	(revision 3ea86cea2d96f453ef333ad05016985354da086b)
++++ b/Controllers/HomeController.cs	(date 1691673613967)
+@@ -6,16 +6,16 @@
+ {
+     public class HomeController : Controller
+     {
+-    
+-
+-        public HomeController()
+-        {
+-       
+-        }
+-
+-        public IActionResult Index()
+-        {
+-            return View(Repository.Products);
++        public IActionResult Index(string searchString)
++        {
++            var products = Repository.Products;
++            
++            if (!String.IsNullOrEmpty(searchString))
++            {
++                ViewBag.SearchString = searchString;
++                products = products.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
++            }
++            return View(products);
+         }
+ 
+         public IActionResult Privacy()
+Index: obj/Debug/net7.0/staticwebassets.build.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/staticwebassets.build.json b/obj/Debug/net7.0/staticwebassets.build.json
+new file mode 100644
+--- /dev/null	(date 1691668746701)
++++ b/obj/Debug/net7.0/staticwebassets.build.json	(date 1691668746701)
+@@ -0,0 +1,1176 @@
++{
++  "Version": 1,
++  "Hash": "YPG8imINroAUVruIY9bosOqcdqzya3qtveEW1lxt53c=",
++  "Source": "DeviceReviewApp",
++  "BasePath": "_content/DeviceReviewApp",
++  "Mode": "Default",
++  "ManifestType": "Build",
++  "ReferencedProjectsConfiguration": [],
++  "DiscoveryPatterns": [
++    {
++      "Name": "DeviceReviewApp\\wwwroot",
++      "Source": "DeviceReviewApp",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "Pattern": "**"
++    }
++  ],
++  "Assets": [
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\bundle\\DeviceReviewApp.styles.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Computed",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "DeviceReviewApp.styles.css",
++      "AssetKind": "All",
++      "AssetMode": "CurrentProject",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "ScopedCss",
++      "AssetTraitValue": "ApplicationBundle",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\bundle\\DeviceReviewApp.styles.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\DeviceReviewApp.bundle.scp.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Computed",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "DeviceReviewApp.bundle.scp.css",
++      "AssetKind": "All",
++      "AssetMode": "Reference",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "ScopedCss",
++      "AssetTraitValue": "ProjectBundle",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\DeviceReviewApp.bundle.scp.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\css\\site.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "css/site.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\css\\site.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\favicon.ico",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "favicon.ico",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\favicon.ico"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\1.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/1.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\1.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\2.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/2.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\2.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\3.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/3.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\3.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\4.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/4.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\4.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\5.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/5.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\5.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\6.jpg",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "img/6.jpg",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\img\\6.jpg"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\js\\site.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "js/site.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\js\\site.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\bootstrap\\LICENSE",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/bootstrap/LICENSE",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery-validation/LICENSE.md",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery/dist/jquery.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery/dist/jquery.min.js",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery/dist/jquery.min.map",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
++    },
++    {
++      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\lib\\jquery\\LICENSE.txt",
++      "SourceId": "DeviceReviewApp",
++      "SourceType": "Discovered",
++      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
++      "BasePath": "_content/DeviceReviewApp",
++      "RelativePath": "lib/jquery/LICENSE.txt",
++      "AssetKind": "All",
++      "AssetMode": "All",
++      "AssetRole": "Primary",
++      "RelatedAsset": "",
++      "AssetTraitName": "",
++      "AssetTraitValue": "",
++      "CopyToOutputDirectory": "Never",
++      "CopyToPublishDirectory": "PreserveNewest",
++      "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
++    }
++  ]
++}
+\ No newline at end of file
+Index: obj/Debug/net7.0/DeviceReviewApp.csproj.FileListAbsolute.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/DeviceReviewApp.csproj.FileListAbsolute.txt b/obj/Debug/net7.0/DeviceReviewApp.csproj.FileListAbsolute.txt
+new file mode 100644
+--- /dev/null	(date 1691668747175)
++++ b/obj/Debug/net7.0/DeviceReviewApp.csproj.FileListAbsolute.txt	(date 1691668747175)
+@@ -0,0 +1,31 @@
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\appsettings.Development.json
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\appsettings.json
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.staticwebassets.runtime.json
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.exe
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.deps.json
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.runtimeconfig.json
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.dll
++C:\Users\seherst\Desktop\DeviceReviewApp\bin\Debug\net7.0\DeviceReviewApp.pdb
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.csproj.AssemblyReference.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.GeneratedMSBuildEditorConfig.editorconfig
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.AssemblyInfoInputs.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.AssemblyInfo.cs
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.csproj.CoreCompileInputs.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.MvcApplicationPartsAssemblyInfo.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.RazorAssemblyInfo.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.RazorAssemblyInfo.cs
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets\msbuild.DeviceReviewApp.Microsoft.AspNetCore.StaticWebAssets.props
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets\msbuild.build.DeviceReviewApp.props
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.DeviceReviewApp.props
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.DeviceReviewApp.props
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets.pack.json
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets.build.json
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\staticwebassets.development.json
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\scopedcss\bundle\DeviceReviewApp.styles.css
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\scopedcss\projectbundle\DeviceReviewApp.bundle.scp.css
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.dll
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\refint\DeviceReviewApp.dll
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.pdb
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\DeviceReviewApp.genruntimeconfig.cache
++C:\Users\seherst\Desktop\DeviceReviewApp\obj\Debug\net7.0\ref\DeviceReviewApp.dll
+Index: obj/Debug/net7.0/scopedcss/bundle/DeviceReviewApp.styles.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/scopedcss/bundle/DeviceReviewApp.styles.css b/obj/Debug/net7.0/scopedcss/bundle/DeviceReviewApp.styles.css
+new file mode 100644
+--- /dev/null	(date 1691668746951)
++++ b/obj/Debug/net7.0/scopedcss/bundle/DeviceReviewApp.styles.css	(date 1691668746951)
+@@ -0,0 +1,49 @@
++/* _content/DeviceReviewApp/Views/Shared/_Layout.cshtml.rz.scp.css */
++/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
++for details on configuring this project to bundle and minify static web assets. */
++
++a.navbar-brand[b-z66kgaegal] {
++  white-space: normal;
++  text-align: center;
++  word-break: break-all;
++}
++
++a[b-z66kgaegal] {
++  color: #0077cc;
++}
++
++.btn-primary[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.nav-pills .nav-link.active[b-z66kgaegal], .nav-pills .show > .nav-link[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.border-top[b-z66kgaegal] {
++  border-top: 1px solid #e5e5e5;
++}
++.border-bottom[b-z66kgaegal] {
++  border-bottom: 1px solid #e5e5e5;
++}
++
++.box-shadow[b-z66kgaegal] {
++  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
++}
++
++button.accept-policy[b-z66kgaegal] {
++  font-size: 1rem;
++  line-height: inherit;
++}
++
++.footer[b-z66kgaegal] {
++  position: absolute;
++  bottom: 0;
++  width: 100%;
++  white-space: nowrap;
++  line-height: 60px;
++}
+Index: obj/Debug/net7.0/scopedcss/projectbundle/DeviceReviewApp.bundle.scp.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/scopedcss/projectbundle/DeviceReviewApp.bundle.scp.css b/obj/Debug/net7.0/scopedcss/projectbundle/DeviceReviewApp.bundle.scp.css
+new file mode 100644
+--- /dev/null	(date 1691668746951)
++++ b/obj/Debug/net7.0/scopedcss/projectbundle/DeviceReviewApp.bundle.scp.css	(date 1691668746951)
+@@ -0,0 +1,49 @@
++/* _content/DeviceReviewApp/Views/Shared/_Layout.cshtml.rz.scp.css */
++/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
++for details on configuring this project to bundle and minify static web assets. */
++
++a.navbar-brand[b-z66kgaegal] {
++  white-space: normal;
++  text-align: center;
++  word-break: break-all;
++}
++
++a[b-z66kgaegal] {
++  color: #0077cc;
++}
++
++.btn-primary[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.nav-pills .nav-link.active[b-z66kgaegal], .nav-pills .show > .nav-link[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.border-top[b-z66kgaegal] {
++  border-top: 1px solid #e5e5e5;
++}
++.border-bottom[b-z66kgaegal] {
++  border-bottom: 1px solid #e5e5e5;
++}
++
++.box-shadow[b-z66kgaegal] {
++  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
++}
++
++button.accept-policy[b-z66kgaegal] {
++  font-size: 1rem;
++  line-height: inherit;
++}
++
++.footer[b-z66kgaegal] {
++  position: absolute;
++  bottom: 0;
++  width: 100%;
++  white-space: nowrap;
++  line-height: 60px;
++}
+Index: obj/Debug/net7.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/net7.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css b/obj/Debug/net7.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+new file mode 100644
+--- /dev/null	(date 1691668746936)
++++ b/obj/Debug/net7.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css	(date 1691668746936)
+@@ -0,0 +1,48 @@
++/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
++for details on configuring this project to bundle and minify static web assets. */
++
++a.navbar-brand[b-z66kgaegal] {
++  white-space: normal;
++  text-align: center;
++  word-break: break-all;
++}
++
++a[b-z66kgaegal] {
++  color: #0077cc;
++}
++
++.btn-primary[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.nav-pills .nav-link.active[b-z66kgaegal], .nav-pills .show > .nav-link[b-z66kgaegal] {
++  color: #fff;
++  background-color: #1b6ec2;
++  border-color: #1861ac;
++}
++
++.border-top[b-z66kgaegal] {
++  border-top: 1px solid #e5e5e5;
++}
++.border-bottom[b-z66kgaegal] {
++  border-bottom: 1px solid #e5e5e5;
++}
++
++.box-shadow[b-z66kgaegal] {
++  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
++}
++
++button.accept-policy[b-z66kgaegal] {
++  font-size: 1rem;
++  line-height: inherit;
++}
++
++.footer[b-z66kgaegal] {
++  position: absolute;
++  bottom: 0;
++  width: 100%;
++  white-space: nowrap;
++  line-height: 60px;
++}

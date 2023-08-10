@@ -23,8 +23,16 @@ namespace DeviceReviewApp.Controllers
                 products = products.Where(p => p.CategoryId == int.Parse(category)).ToList();
             }
 
-            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name", category);
-            return View(products);
+            // ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name", category);
+
+            var model = new ProductViewModel()
+            {
+                Products = products,
+                Categories = Repository.Categories,
+                SelectedCategory = category
+                    
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()

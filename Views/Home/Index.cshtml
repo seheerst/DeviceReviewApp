@@ -4,6 +4,23 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="card card-body my-3">
+    <form asp-action="Index" method="get">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">
+                    <select name="category" class="form-select" asp-items="@ViewBag.Categories">
+                        <option value="0"> Hepsi</option>
+                    </select>
+                    </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary" asp-action="Index" >Filter</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <table class="table table-bordered table-striped">
 <thead>
 
@@ -20,7 +37,8 @@
 {
     <tr>
         <td>@prd.ProductId</td>
-        <td><img src="~/img/@prd.Image" class="img-fluid"></td>
+        <td>
+            <img src="~/img/@prd.Image" class="img-fluid" alt="@prd.Name"></td>
         <td>@prd.Name</td>
         <td>@prd.Price</td>
         <td>

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace DeviceReviewApp.Models;
 
 public class Repository
@@ -33,5 +35,11 @@ public class Repository
         {
             return _categories;
         }
+    }
+
+    public static void CreateProduct(Product entity)
+    {
+        entity.ProductId = _products.Count + 1;
+        _products.Add(entity);
     }
 }

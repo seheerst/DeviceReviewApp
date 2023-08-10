@@ -15,7 +15,7 @@ namespace DeviceReviewApp.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.SearchString = searchString;
-                products = products.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
+                products = products.Where(p => p.Name!.ToLower().Contains(searchString)).ToList();
             }
 
             if (!String.IsNullOrEmpty(category) && int.Parse(category) != 0)
@@ -35,10 +35,30 @@ namespace DeviceReviewApp.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
+        
+        [HttpGet]
+        public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
             return View();
         }
+        
+        [HttpPost]
+        public IActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                Repository.CreateProduct(product);             
+                return RedirectToAction("Index");              
+            }
+            
+            
+            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+            return View(product);
 
+
+
+        }
+        
     }
 }

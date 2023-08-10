@@ -1,16 +1,23 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace DeviceReviewApp.Models;
 
 public class Product
 {
+    
     public  int ProductId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    [Required]
+    public string? Name { get; set; }
     
-    public string Price { get; set; }= string.Empty;
+    [Required]
+    public string? Price { get; set; }
 
-    public string Image { get; set; } = string.Empty;
+    [Required]
+    public string? Image { get; set; }
     
     public bool IsActive { get; set; }
     
-    public int CategoryId { get; set; }
+    [Required]
+    public int? CategoryId { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model ProductViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-11">
-                    <select name="category" class="form-select" asp-items="@ViewBag.Categories">
+                    <select name="category" class="form-select" asp-items="@(new SelectList(Repository.Categories, "CategoryId", "Name", Model.SelectedCategory))">
                         <option value="0"> Hepsi</option>
                     </select>
                     </div>
@@ -33,7 +33,7 @@
 </tr>
 </thead>
 <tbody>
-@foreach (var prd in @Model)
+@foreach (var prd in @Model.Products)
 {
     <tr>
         <td>@prd.ProductId</td>

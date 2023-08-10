@@ -1,0 +1,38 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "New Product";
+}
+
+<form asp-controller="Home" asp-action="Create" method="post" >
+   <div asp-validation-summary="All">
+        <div class="mb-3" >
+            <label asp-for="Name" class="form-label"> Product Name</label>
+            <input asp-for="Name" class="form-control"/>
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"> Product Price</label>
+            <input asp-for="Price" class="form-control"/>
+        </div>
+        
+         <div class="mb-3">
+                <label asp-for="Image" class="form-label"> Product Image</label>
+                <input asp-for="Image" class="form-control"/>
+            </div>
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Category</label>
+            <select asp-for="CategoryId"  asp-items="ViewBag.Categories" class="form-select">
+                <option value="">Hepsi</option>
+                
+               
+            </select>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="IsActive" class="form-check-input"/>
+            <label asp-for="IsActive" class="form-check-label">Is Active</label>
+        </div>
+       <button type="submit" class="btn btn-primary"> Kaydet</button>
+   </div>
+</form>
+

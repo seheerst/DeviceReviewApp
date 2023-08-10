@@ -1,6 +1,7 @@
 ﻿using DeviceReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Runtime.InteropServices.Marshalling;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DeviceReviewApp.Controllers
@@ -34,30 +35,43 @@ namespace DeviceReviewApp.Controllers
             };
             return View(model);
         }
-
-        
         [HttpGet]
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
             return View();
         }
-        
         [HttpPost]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
+            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
+            var extension = Path.GetExtension(imageFile.FileName);
+            var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
+            Console.WriteLine(randomFileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+            if (imageFile != null)
+            {
+                if (!allowedExtensions.Contains(extension))
+               
+                {
+                    ModelState.AddModelError("", "Dosya formatı uygun değil");
+                }
+            }
+            
             if (ModelState.IsValid)
             {
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+                product.Image = randomFileName;
                 Repository.CreateProduct(product);             
                 return RedirectToAction("Index");              
             }
-            
-            
             ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
             return View(product);
-
-
-
         }
         
     }

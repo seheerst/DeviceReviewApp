@@ -4,7 +4,7 @@
     ViewData["Title"] = "New Product";
 }
 
-<form asp-controller="Home" asp-action="Create" method="post" >
+<form asp-controller="Home" asp-action="Create" method="post" enctype="multipart/form-data" >
    <div asp-validation-summary="All">
         <div class="mb-3" >
             <label asp-for="Name" class="form-label"> Product Name</label>
@@ -16,9 +16,8 @@
             <input asp-for="Price" class="form-control"/>
         </div>
         
-         <div class="mb-3">
-                <label asp-for="Image" class="form-label"> Product Image</label>
-                <input asp-for="Image" class="form-control"/>
+         <div class=" input-group mb-3">
+               <input type="file" name="imageFile" id="imageFile" class="form-control"/>
             </div>
         <div class="mb-3">
             <label asp-for="CategoryId" class="form-label">Category</label>

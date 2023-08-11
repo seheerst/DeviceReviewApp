@@ -1,0 +1,42 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<form asp-controller="Home" asp-action="Edit" method="post" enctype="multipart/form-data" >
+    <div asp-validation-summary="All">
+        <input type="hidden" asp-for="ProductId"/>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"> Product Name</label>
+            <input asp-for="Name" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"> Product Price</label>
+            <input asp-for="Price" class="form-control"/>
+        </div>
+
+        <div class=" input-group mb-3">
+            <input type="file" name="imageFile" id="imageFile" class="form-control"/>
+        </div>
+        <div>
+            <img src="/img/@Model.Image" alt="" style="width: 70px"/>
+            <input type="hidden" asp-for="@Model.Image"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Category</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+                <option value="">Hepsi</option>
+
+
+            </select>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="IsActive" class="form-check-input"/>
+            <label asp-for="IsActive" class="form-check-label">Is Active</label>
+        </div>
+        <button type="submit" class="btn btn-primary"> Güncelle</button>
+    </div>
+</form>
+

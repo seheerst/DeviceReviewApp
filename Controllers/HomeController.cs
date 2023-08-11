@@ -73,6 +73,59 @@ namespace DeviceReviewApp.Controllers
             ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
             return View(product);
         }
-        
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var entity = Repository.Products.FirstOrDefault(p => p.ProductId == id);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+
+            return View(entity);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Product product, IFormFile? imageFile)
+        {
+            if (id != product.ProductId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (imageFile != null)
+                {
+                   
+                    var extension = Path.GetExtension(imageFile.FileName);
+                    var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+                   
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    product.Image = randomFileName;
+                }
+                Repository.EditProduct(product);
+                return RedirectToAction("Index");
+            }
+            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+
+            return View(product);
+        }
     }
+    
+    
 }

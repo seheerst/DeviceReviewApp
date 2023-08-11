@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AckXt/KN/F1OzoQFFEvUyrjFbc7jPdclHtdcGgkmgRE=",
+  "Hash": "YPG8imINroAUVruIY9bosOqcdqzya3qtveEW1lxt53c=",
   "Source": "DeviceReviewApp",
   "BasePath": "_content/DeviceReviewApp",
   "Mode": "Default",
@@ -83,23 +83,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\0b772b50-8b08-49c2-975c-6c082342c0b5.jpg",
-      "SourceId": "DeviceReviewApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
-      "BasePath": "_content/DeviceReviewApp",
-      "RelativePath": "img/0b772b50-8b08-49c2-975c-6c082342c0b5.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\0b772b50-8b08-49c2-975c-6c082342c0b5.jpg"
     },
     {
       "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\1.jpg",
@@ -202,40 +185,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\6.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\b46e49f2-60dd-400a-8f34-4d989168de1f.jpg",
-      "SourceId": "DeviceReviewApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
-      "BasePath": "_content/DeviceReviewApp",
-      "RelativePath": "img/b46e49f2-60dd-400a-8f34-4d989168de1f.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\b46e49f2-60dd-400a-8f34-4d989168de1f.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\dbcb8192-7ec1-4619-86b6-9fd71896a33e.jpg",
-      "SourceId": "DeviceReviewApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\",
-      "BasePath": "_content/DeviceReviewApp",
-      "RelativePath": "img/dbcb8192-7ec1-4619-86b6-9fd71896a33e.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\dbcb8192-7ec1-4619-86b6-9fd71896a33e.jpg"
     },
     {
       "Identity": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\js\\site.js",

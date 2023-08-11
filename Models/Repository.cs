@@ -70,4 +70,19 @@ public class Repository
 
         }
     }
+    
+    public static void BatchEdit(Product updatedProduct)
+    {
+        var entity = _products.FirstOrDefault(p => p.ProductId == updatedProduct.ProductId);
+
+        if (entity != null)
+        {
+          
+            entity.IsActive = updatedProduct.IsActive;
+         
+
+            
+            
+        }
+    }
 }

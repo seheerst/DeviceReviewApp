@@ -21,32 +21,40 @@
     </form>
 </div>
 
-<table class="table table-bordered table-striped">
-<thead>
+<form asp-action="BatchEdit" method="post">
+    <table class="table table-bordered table-striped">
+        <thead>
 
-<tr>
-    <th style="width: 100px">Product Id</th>
-    <th style="width: 100px"> Product Image</th>
-    <th>Product Name</th>
-    <th  style="width: 100px">Product Price</th>
-    <th  style="width: 130px"></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var prd in @Model.Products)
-{
-    <tr>
-        <td>@prd.ProductId</td>
-        <td>
-            <img src="~/img/@prd.Image" class="img-fluid" alt="@prd.Name"></td>
-        <td>@prd.Name</td>
-        <td>@prd.Price</td>
-        <td>
-             <a href="/home/Edit/@prd.ProductId" class=" btn btn-sm btn-primary">Edit</a>
-            <a href="/home/Delete/@prd.ProductId" class=" btn btn-sm btn-danger">Delete</a>
-        </td>
+        <tr>
+            <th style="width: 100px">Product Id</th>
+            <th style="width: 100px"> Product Image</th>
+            <th>Product Name</th>
+            <th  style="width: 100px">Product Price</th>
+            <th> Is Active</th>
+            <th  style="width: 130px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (var i =0;i<@Model.Products.Count; i++)
+        {
+            <tr>
+                <td>@Model.Products[i].ProductId
+                    <input type="hidden" asp-for="@Model.Products[i].ProductId"/></td>
+                <td>
+                    <img src="~/img/@Model.Products[i].Image" class="img-fluid" alt="@Model.Products[i].Name"></td>
+                <td>@Model.Products[i].Name</td>
+                <td>@Model.Products[i].Price</td>
+                <td>
+                    <input type="checkbox" asp-for="@Model.Products[i].IsActive"/>
+                </td>
+                <td>
+                    <a href="/home/Edit/@Model.Products[i].ProductId" class=" btn btn-sm btn-primary">Edit</a>
+                    <a href="/home/Delete/@Model.Products[i].ProductId" class=" btn btn-sm btn-danger">Delete</a>
+                </td>
         
-    </tr>
-}
-</tbody>
-</table>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <button class="btn btn-primary" href="/home/"> Güncelle </button>
+</form>

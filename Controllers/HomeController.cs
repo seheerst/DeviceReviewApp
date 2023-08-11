@@ -171,6 +171,16 @@ namespace DeviceReviewApp.Controllers
             return RedirectToAction("Index");
 
         }
-        
+
+
+        public IActionResult BatchEdit(List<Product> products)
+        {
+            foreach (var product in products)
+            {
+                Repository.BatchEdit(product);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

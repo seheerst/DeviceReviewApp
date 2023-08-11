@@ -8,11 +8,10 @@ namespace DeviceReviewApp.Controllers
 {
     public class HomeController : Controller
     {
-    
         public IActionResult Index(string searchString, string category)
         {
             var products = Repository.Products;
-            
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.SearchString = searchString;
@@ -31,53 +30,62 @@ namespace DeviceReviewApp.Controllers
                 Products = products,
                 Categories = Repository.Categories,
                 SelectedCategory = category
-                    
             };
             return View(model);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+            ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
-            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
-            var extension = Path.GetExtension(imageFile.FileName);
-            var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
-            Console.WriteLine(randomFileName);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+            var randomFileName = "";
+            var path = "";
+            var extension = "";
 
             if (imageFile != null)
             {
+                var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
+                extension = Path.GetExtension(imageFile.FileName);
+
                 if (!allowedExtensions.Contains(extension))
-               
+
                 {
                     ModelState.AddModelError("", "Dosya formatı uygun değil");
                 }
             }
-            
+
             if (ModelState.IsValid)
             {
-
-                using (var stream = new FileStream(path, FileMode.Create))
+                if (imageFile != null)
                 {
-                    await imageFile.CopyToAsync(stream);
+                    randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    product.Image = randomFileName;
+                    Repository.CreateProduct(product);
+                    return RedirectToAction("Index");
                 }
-                product.Image = randomFileName;
-                Repository.CreateProduct(product);             
-                return RedirectToAction("Index");              
             }
-            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+
+            ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
             return View(product);
         }
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
@@ -89,7 +97,8 @@ namespace DeviceReviewApp.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+
+            ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
 
             return View(entity);
         }
@@ -106,11 +115,10 @@ namespace DeviceReviewApp.Controllers
             {
                 if (imageFile != null)
                 {
-                   
                     var extension = Path.GetExtension(imageFile.FileName);
                     var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
-                   
+
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await imageFile.CopyToAsync(stream);
@@ -118,14 +126,51 @@ namespace DeviceReviewApp.Controllers
 
                     product.Image = randomFileName;
                 }
+
                 Repository.EditProduct(product);
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = new SelectList(Repository.Categories,"CategoryId", "Name");
+
+            ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
 
             return View(product);
         }
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id== null)
+            {
+                return NotFound();
+            }
+            
+            var entity = Repository.Products.FirstOrDefault(p => p.ProductId == id);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            return View(entity);
+
+        }
+        [HttpPost]
+        public IActionResult Delete(int id, int ProductId)
+        {
+            if (id != ProductId)
+            {
+                return NotFound();
+            }
+            var entity = Repository.Products.FirstOrDefault(p => p.ProductId == ProductId);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            
+            Repository.DeleteProduct(entity);
+            return RedirectToAction("Index");
+
+        }
+        
     }
-    
-    
 }

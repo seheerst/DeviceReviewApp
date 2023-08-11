@@ -1,0 +1,11 @@
+@model Product
+
+<div>
+    <p> @Model.Name, are you sure you want to delete the product??</p>
+    
+    <form action="" method="post">
+        <input type="hidden" asp-for="@Model.ProductId"/>
+        <button type="submit" class="btn btn-danger">Yes</button>
+        <a href="/" class="btn btn-primary"> Cancel</a>
+    </form>
+</div>

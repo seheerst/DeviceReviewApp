@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\0b772b50-8b08-49c2-975c-6c082342c0b5.jpg",
+      "PackagePath": "staticwebassets\\img\\0b772b50-8b08-49c2-975c-6c082342c0b5.jpg"
+    },
+    {
       "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\1.jpg",
       "PackagePath": "staticwebassets\\img\\1.jpg"
     },
@@ -35,6 +39,14 @@
     {
       "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\6.jpg",
       "PackagePath": "staticwebassets\\img\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\b46e49f2-60dd-400a-8f34-4d989168de1f.jpg",
+      "PackagePath": "staticwebassets\\img\\b46e49f2-60dd-400a-8f34-4d989168de1f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\img\\dbcb8192-7ec1-4619-86b6-9fd71896a33e.jpg",
+      "PackagePath": "staticwebassets\\img\\dbcb8192-7ec1-4619-86b6-9fd71896a33e.jpg"
     },
     {
       "Id": "C:\\Users\\seherst\\Desktop\\DeviceReviewApp\\wwwroot\\js\\site.js",
